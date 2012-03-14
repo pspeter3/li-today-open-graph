@@ -2,7 +2,7 @@
 (function(d, w) {
 	// Adds a script
 
-	function addScript(id, src) {
+	function addScript(id, src, callback) {
 		// Prevent the script from being loaded twice
 		if (d.getElementById(id)) {
 			return;
@@ -10,25 +10,59 @@
 		// Sets up the script
 		var js = d.createElement('script');
 		js.id = id;
+		js.async = true;
 		js.src = src;
 		var loaded = false;
+		// Calls the callback when the script is loaded
+		js.onload = js.onreadystatechange = function() {
+			if (!loaded && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {
+				loaded = true;
+				callback();
+			}
+		}
 		d.getElementsByTagName('head')[0].appendChild(js);
 	}
 
 	// Sets up the Facebook async callback
 	w.fbAsyncInit = function() {
+		// Initializes Facebook
 		FB.init({
-			appId: '[YOUR_APP_ID]',
-			// App ID
+			appId: '318731064857073',
 			status: true,
-			// check login status
 			cookie: true,
-			// enable cookies to allow the server to access the session
-			xfbml: true // parse XFBML
+			xfbml: true
+		});
+
+		// Bind click events
+		jQuery('.article').each(function() {
+			// Generate the info for the article
+			var info = {};
+			link = jQuery(this).find('.image a');
+			info.title = link.attr('title');
+			info.url = link.attr('href').replace(/\/redir\/redirect\?url=/, '');
+			info.image = link.find('img').attr('src');
+			info.description = jQuery(this).find('.article-summary').text();
+			var url = 'http://hollow-ocean-1984.heroku.com/?' + jQuery.param(info);
+			console.log(url);
+			// Call the API
+			jQuery(this).find('a').on('click', function() {
+				FB.api('/me/com-linkedin-today-p/view?story=' + url, 'post', function(response) {
+					if (!response || response.error) {
+						alert('Error occured');
+					} else {
+						alert('View was successful! Action ID: ' + response.id);
+					}
+				});
+			});
 		});
 	};
 
-	jQuery('#extra').append("<div id=\"fb-root\"></div>
-			<fb:login-button show-faces=\"true\" width=\"200\" max-rows=\"1\" scope=\"publish_actions\"></fb:login-button>
-	");
+	// Sets up jQuery
+	addScript('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js', function() {
+		// Adds the facebook root and login button
+		jQuery('#extra').prepend("<div id=\"fb-root\"></div><fb:login-button width=\"200\" max-rows=\"1\" scope=\"publish_actions\"></fb:login-button>");
+		addScript('facebook-jssdk', '//connect.facebook.net/en_US/all.js', function() {
+			return;
+		});
+	});
 }(document, window));

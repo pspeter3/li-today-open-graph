@@ -6,8 +6,8 @@ get '/' do
 <meta property="og:type"        content="com-linkedin-today-p:story" /> 
 <meta property="og:url"         content="#{params[:url]}" /> 
 <meta property="og:title"       content="#{params[:title]}" /> 
-<meta property="og:description" content="#{params[:desc]}" /> 
-<meta property="og:image"       content="#{params[:img]}" />
+<meta property="og:description" content="#{params[:description]}" /> 
+<meta property="og:image"       content="#{params[:image]}" />
 EOS
 
   response
