@@ -1,20 +1,47 @@
-// LinkedIn Today Open Graph module
-var LITodayOpenGraph = (function() {
-	// Create the module object
-	var module = {};
+// Wrap the module and pass in the document and window objects
+(function(d, w) {
+	// Adds a script
 
-	// Add a script
-	module.addScript = function(d, src) {
-		var js = d.createElement('script'); js.src = src;
-		d.getElementsByTagName(0).appendChild(js);
+
+	function addScript(id, src, callback) {
+		// Prevent the script from being loaded twice
+		if (d.getElementById(id)) {
+			return;
+		}
+		// Sets up the script
+		var js = d.createElement('script');
+		js.id = id;
+		js.async = true;
+		js.src = src;
+		var loaded = false;
+		// Calls the callback when the script is loaded
+		js.onload = js.onreadystatechange = function() {
+			if (!loaded && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {
+				loaded = true;
+				callback();
+			}
+		}
+		d.getElementsByTagName('head')[0].appendChild(js);
 	}
-	// Pass the module object back up
-	return module;
-}());
 
-LITodayOpenGraph.addScript(document, '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
-$('#extra').append(
-	"<div id=\fb-root\"></div>
-	<fb:login-button show-faces=\"true\" width=\"200\" max-rows=\"1\" scope=\"publish_actions\">
-  </fb:login-button>
-	");
+	// Sets up the Facebook async callback
+	w.fbAsyncInit = function() {
+		FB.init({
+			appId: '[YOUR_APP_ID]',
+			// App ID
+			status: true,
+			// check login status
+			cookie: true,
+			// enable cookies to allow the server to access the session
+			xfbml: true // parse XFBML
+		});
+	};
+
+	// Sets up jQuery
+	addScript('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js', function() {
+		$('#extra').append("<div id=\"fb-root\"></div><fb:login-button show-faces=\"true\" width=\"200\" max-rows=\"1\" scope=\"publish_actions\"></fb:login-button>");
+		addScript('facebook-jssdk', '//connect.facebook.net/en_US/all.js', function() {
+			return;
+		})
+	});
+}(document, window));
