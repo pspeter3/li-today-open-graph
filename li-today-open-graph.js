@@ -1,34 +1,20 @@
-// Wrap the module and pass in the document and window objects
-(function(d, w) {
-	// Adds a script
+// LinkedIn Today Open Graph module
+var LITodayOpenGraph = (function() {
+	// Create the module object
+	var module = {};
 
-	function addScript(id, src) {
-		// Prevent the script from being loaded twice
-		if (d.getElementById(id)) {
-			return;
-		}
-		// Sets up the script
-		var js = d.createElement('script');
-		js.id = id;
-		js.src = src;
-		var loaded = false;
-		d.getElementsByTagName('head')[0].appendChild(js);
+	// Add a script
+	module.addScript = function(d, src) {
+		var js = d.createElement('script'); js.src = src;
+		d.getElementsByTagName(0).appendChild(js);
 	}
+	// Pass the module object back up
+	return module;
+}());
 
-	// Sets up the Facebook async callback
-	w.fbAsyncInit = function() {
-		FB.init({
-			appId: '[YOUR_APP_ID]',
-			// App ID
-			status: true,
-			// check login status
-			cookie: true,
-			// enable cookies to allow the server to access the session
-			xfbml: true // parse XFBML
-		});
-	};
-
-	jQuery('#extra').append("<div id=\"fb-root\"></div>
-			<fb:login-button show-faces=\"true\" width=\"200\" max-rows=\"1\" scope=\"publish_actions\"></fb:login-button>
+LITodayOpenGraph.addScript(document, '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js');
+$('#extra').append(
+	"<div id=\fb-root\"></div>
+	<fb:login-button show-faces=\"true\" width=\"200\" max-rows=\"1\" scope=\"publish_actions\">
+  </fb:login-button>
 	");
-}(document, window));
