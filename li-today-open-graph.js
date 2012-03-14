@@ -2,7 +2,6 @@
 (function(d, w) {
 	// Adds a script
 
-
 	function addScript(id, src, callback) {
 		// Prevent the script from being loaded twice
 		if (d.getElementById(id)) {
@@ -27,19 +26,16 @@
 	// Sets up the Facebook async callback
 	w.fbAsyncInit = function() {
 		FB.init({
-			appId: '[YOUR_APP_ID]',
-			// App ID
+			appId: '318731064857073',
 			status: true,
-			// check login status
 			cookie: true,
-			// enable cookies to allow the server to access the session
-			xfbml: true // parse XFBML
+			xfbml: true
 		});
 	};
 
 	// Sets up jQuery
 	addScript('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js', function() {
-		$('#extra').append("<div id=\"fb-root\"></div><fb:login-button show-faces=\"true\" width=\"200\" max-rows=\"1\" scope=\"publish_actions\"></fb:login-button>");
+		$('#extra').prepend("<div id=\"fb-root\"></div><fb:login-button show-faces=\"true\" width=\"200\" max-rows=\"1\" scope=\"publish_actions\"></fb:login-button>");
 		addScript('facebook-jssdk', '//connect.facebook.net/en_US/all.js', function() {
 			return;
 		})
