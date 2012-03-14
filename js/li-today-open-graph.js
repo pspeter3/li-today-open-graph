@@ -33,7 +33,7 @@
     };
 
 	// Sets up jQuery
-	addScript('jquery', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js', function() {
+	addScript('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js', function() {
 		jQuery('#extra').append('<fb:login-button show-faces="true" width="200" max-rows="1" scope="publish_actions"></fb:login-button>')
 		addScript('facebook-jssdk', '//connect.facebook.net/en_US/all.js', function() {return;})
 	});
