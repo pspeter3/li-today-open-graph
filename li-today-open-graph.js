@@ -25,19 +25,38 @@
 
 	// Sets up the Facebook async callback
 	w.fbAsyncInit = function() {
+		// Initializes Facebook
 		FB.init({
 			appId: '318731064857073',
 			status: true,
 			cookie: true,
 			xfbml: true
 		});
+
+		// Bind click events
+		jQuery('.article').each(function() {
+			// Generate the info for the article
+			var info = {};
+			link = jQuery(this).find('.image a');
+			info.title = link.attr('title');
+			info.url = link.attr('href').replace(/\/redir\/redirect\?url=/, '');
+			info.image = link.find('img').attr('src');
+			info.description = jQuery(this).find('.article-summary').html();
+			// Call the API
+			jQuery(this).find('a').on('click', function() {
+				FB.api(
+					'/me/com-linkedin-today-p'
+				);
+			});
+		});
 	};
 
 	// Sets up jQuery
 	addScript('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js', function() {
-		$('#extra').prepend("<div id=\"fb-root\"></div><fb:login-button width=\"200\" max-rows=\"1\" scope=\"publish_actions\"></fb:login-button>");
+		// Adds the facebook root and login button
+		jQuery('#extra').prepend("<div id=\"fb-root\"></div><fb:login-button width=\"200\" max-rows=\"1\" scope=\"publish_actions\"></fb:login-button>");
 		addScript('facebook-jssdk', '//connect.facebook.net/en_US/all.js', function() {
 			return;
-		})
+		});
 	});
 }(document, window));
