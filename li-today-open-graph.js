@@ -43,7 +43,6 @@
 			info.image = link.find('img').attr('src');
 			info.description = jQuery(this).find('.article-summary').text();
 			var url = 'http://hollow-ocean-1984.heroku.com/?' + jQuery.param(info);
-			console.log(url);
 			// Call the API
 			jQuery(this).find('a').on('click', function() {
 				FB.api('/me/com-linkedin-today-p/view?story=' + url, 'post', function(response) {
