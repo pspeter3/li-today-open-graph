@@ -47,6 +47,7 @@
 			jQuery(this).find('a').on('click', function() {
 				console.log(jQuery(this).attr('href'));
 				FB.api('/me/com-linkedin-today-p/view?story=' + url, 'post', function(response) {
+					console.log(response);
 					if (!response || response.error) {
 						alert('Error occured');
 					} else {
