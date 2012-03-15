@@ -43,10 +43,8 @@
 			info.image = link.find('img').attr('src');
 			info.description = jQuery(this).find('.article-summary').text();
 			var url = 'http://hollow-ocean-1984.heroku.com/?' + jQuery.param(info);
-			// Call the API
-			jQuery(this).find('a').on('click', function() {
-				console.log(jQuery(this).attr('href'));
-				FB.api('/me/com-linkedin-today-p/view?story=' + url, 'post', function(response) {
+			var callback = function() {
+				FB.api('/me/com-linkedin-today-p:view?story=' + url, 'post', function(response) {
 					console.log(response);
 					if (!response || response.error) {
 						alert('Error occured');
@@ -54,7 +52,12 @@
 						alert('View was successful! Action ID: ' + response.id);
 					}
 				});
-			});
+			}
+			// Call the API
+			jQuery(this).find('a').on('click', callback);
+			if (jQuery(this).prev().hasClass('title')) {
+				jQuery(this).prev().on('click', callback);
+			}
 		});
 	};
 
