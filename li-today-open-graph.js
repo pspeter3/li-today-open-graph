@@ -44,15 +44,13 @@
 			info.description = jQuery(this).find('.article-summary').text();
 			var url = 'http://hollow-ocean-1984.heroku.com/?' + jQuery.param(info);
 			var callback = function() {
-					console.log(url);
 					FB.api('/me/com-linkedin-today-p:view', 'post', {
 						'article': url
 					}, function(response) {
-						console.log(response);
 						if (!response || response.error) {
-							alert('Error occured');
+							console.log(response);
 						} else {
-							alert('View was successful! Action ID: ' + response.id);
+							console.log('View was successful! Action ID: ' + response.id);
 						}
 					});
 				}
