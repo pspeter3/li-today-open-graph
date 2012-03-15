@@ -46,7 +46,7 @@
 			var callback = function() {
 					console.log(url);
 					FB.api('/me/com-linkedin-today-p:view', 'post', {
-						'story': url
+						'article': url
 					}, function(response) {
 						console.log(response);
 						if (!response || response.error) {
