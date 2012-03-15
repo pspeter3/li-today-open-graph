@@ -59,7 +59,7 @@
 	// Sets up jQuery
 	addScript('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js', function() {
 		// Adds the facebook root and login button
-		jQuery('#extra').prepend("<div id=\"fb-root\"></div><fb:login-button width=\"200\" max-rows=\"1\" scope=\"publish_actions\"></fb:login-button>");
+		jQuery('#extra').prepend("<div id=\"fb-root\"></div><fb:login-button show-faces=\"true\" width=\"200\" max-rows=\"1\" scope=\"publish_actions\"></fb:login-button><fb:add-to-timeline></fb:add-to-timeline>");
 		addScript('facebook-jssdk', '//connect.facebook.net/en_US/all.js', function() {
 			return;
 		});
