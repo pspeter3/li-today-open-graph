@@ -44,6 +44,7 @@
 			info.description = jQuery(this).find('.article-summary').text();
 			var url = 'http://hollow-ocean-1984.heroku.com/?' + jQuery.param(info);
 			var callback = function() {
+				console.log(url);
 				FB.api('/me/com-linkedin-today-p:view?story=' + url, 'post', function(response) {
 					console.log(response);
 					if (!response || response.error) {
