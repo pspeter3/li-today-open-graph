@@ -45,6 +45,7 @@
 			var url = 'http://hollow-ocean-1984.heroku.com/?' + jQuery.param(info);
 			// Call the API
 			jQuery(this).find('a').on('click', function() {
+				console.log(jQuery(this).attr('href'));
 				FB.api('/me/com-linkedin-today-p/view?story=' + url, 'post', function(response) {
 					if (!response || response.error) {
 						alert('Error occured');
@@ -59,7 +60,7 @@
 	// Sets up jQuery
 	addScript('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js', function() {
 		// Adds the facebook root and login button
-		jQuery('#extra').prepend("<div id=\"fb-root\"></div><fb:login-button show-faces=\"true\" width=\"200\" max-rows=\"1\" scope=\"publish_actions\"></fb:login-button><fb:add-to-timeline></fb:add-to-timeline>");
+		jQuery('#extra').prepend("<div id=\"fb-root\"></div><fb:login-button show-faces=\"true\" width=\"200\" max-rows=\"1\" scope=\"publish_actions\"></fb:login-button>");
 		addScript('facebook-jssdk', '//connect.facebook.net/en_US/all.js', function() {
 			return;
 		});
