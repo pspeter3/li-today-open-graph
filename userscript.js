@@ -1,5 +1,7 @@
 // ==UserScript==
 // @name LinkedIn Today Open Graph
+// @namespace com-linkedin-today-p
+// @description Adds Facebook Open Graph support to LinkedIn Today
 // @include http://www.linkedin.com/today/*
 // ==/UserScript==
 
